@@ -157,6 +157,10 @@ Call when you make an outgoing call
 
 Call when you finish an incoming/outgoing call
 
+### checkIfBusy
+
+Checks if there are any active calls on the device and returns a promise with a boolean value (true if there're active calls, false otherwise).
+
 ## Events
 
 ### - didReceiveStartCallAction

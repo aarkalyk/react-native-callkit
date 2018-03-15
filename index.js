@@ -17,6 +17,8 @@ const RNCallKitPerformEndCallAction = 'RNCallKitPerformEndCallAction';
 const RNCallKitDidActivateAudioSession = 'RNCallKitDidActivateAudioSession';
 
 export default class RNCallKit {
+    static checkIfBusy = _RNCallKit.checkIfBusy;
+
     static addEventListener(type, handler) {
         if (Platform.OS !== 'ios') return;
         var listener;
