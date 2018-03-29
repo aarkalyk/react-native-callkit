@@ -134,6 +134,8 @@ Initialise RNCallKit with options
   - generic
   - number (default)
   - email
+- **hasVideo**: boolean (optional)
+  - false (default)
 - **localizedCallerName**: string (optional)
 
 Call when you receive incoming calls to display system UI
@@ -213,6 +215,12 @@ The `AudioSession` has been activated by **RNCallKit**, you might want to do fol
 
 - Start playing ringback if it is an outgoing call
 
+### - didDisplayIncomingCall
+
+Callback for `RNCallKit.displayIncomingCall`
+
+**error**: string (optional)
+
 ## Usage
 
 ```javascript
@@ -241,6 +249,7 @@ class RNCallKitExample extends React.Component {
     RNCallKit.addEventListener('answerCall', this.onRNCallKitPerformAnswerCallAction);
     RNCallKit.addEventListener('endCall', this.onRNCallKitPerformEndCallAction);
     RNCallKit.addEventListener('didActivateAudioSession', this.onRNCallKitDidActivateAudioSession);
+    RNCallKit.addEventListener('didDisplayIncomingCall', this.onRNCallKitDidDisplayIncomingCall);
   }
 
   onRNCallKitDidReceiveStartCallAction(data) {
@@ -278,6 +287,12 @@ class RNCallKitExample extends React.Component {
      * you might want to do following things when receiving this event:
      *
      * - Start playing ringback if it is an outgoing call
+     */
+  }
+
+  onRNCallKitDidDisplayIncomingCall(error) {
+    /* You will get this event after RNCallKit finishes showing incoming call UI
+     * You can check if there was an error while displaying
      */
   }
 
