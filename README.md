@@ -163,6 +163,13 @@ Call when you finish an incoming/outgoing call
 
 Checks if there are any active calls on the device and returns a promise with a boolean value (`true` if there're active calls, `false` otherwise).
 
+### setMutedCall
+
+- **uuid**: string
+- **muted**: boolean
+
+Switch the mic on/off
+
 ## Events
 
 ### - didReceiveStartCallAction
@@ -221,6 +228,12 @@ Callback for `RNCallKit.displayIncomingCall`
 
 **error**: string (optional)
 
+### - didPerformSetMutedCallAction
+
+A call was muted by the system or the user:
+
+**muted**: boolean
+
 ## Usage
 
 ```javascript
@@ -250,6 +263,7 @@ class RNCallKitExample extends React.Component {
     RNCallKit.addEventListener('endCall', this.onRNCallKitPerformEndCallAction);
     RNCallKit.addEventListener('didActivateAudioSession', this.onRNCallKitDidActivateAudioSession);
     RNCallKit.addEventListener('didDisplayIncomingCall', this.onRNCallKitDidDisplayIncomingCall);
+    RNCallKit.addEventListener('didPerformSetMutedCallAction', this.onRNCallKitDidPerformSetMutedCallAction);
   }
 
   onRNCallKitDidReceiveStartCallAction(data) {
@@ -293,6 +307,12 @@ class RNCallKitExample extends React.Component {
   onRNCallKitDidDisplayIncomingCall(error) {
     /* You will get this event after RNCallKit finishes showing incoming call UI
      * You can check if there was an error while displaying
+     */
+  }
+
+  onRNCallKitDidPerformSetMutedCallAction(muted) {
+    /* You will get this event after the system or the user mutes a call
+     * You can use it to toggle the mic on your custom call UI
      */
   }
 
