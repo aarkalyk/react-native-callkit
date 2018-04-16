@@ -65,7 +65,7 @@ RCT_EXPORT_MODULE()
              RNCallKitPerformAnswerCallAction,
              RNCallKitPerformEndCallAction,
              RNCallKitDidActivateAudioSession,
-             RNCallKitDidDisplayIncomingCall,
+             RNCallKitDidDisplayIncomingCall
              ];
 }
 
@@ -88,8 +88,8 @@ RCT_REMAP_METHOD(checkSpeaker,
 #ifdef DEBUG
     NSLog(@"[RNCallKit][checkSpeaker]");
 #endif
-    NSString *output = [AVAudioSession sharedInstance].currentRoute.outputs.count > 0 ? [AVAudioSession sharedInstance].currentRoute.outputs[0].portType : nil;
-    resolve(@([output isEqualToString:@"Speaker"]));
+    NSString *portType = [AVAudioSession sharedInstance].currentRoute.outputs.count > 0 ? [AVAudioSession sharedInstance].currentRoute.outputs[0].portType : nil;
+    resolve(@([portType isEqualToString:@"Speaker"]));
 }
 
 #pragma mark - CXCallController call actions
