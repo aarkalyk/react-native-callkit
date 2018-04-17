@@ -94,6 +94,16 @@ RCT_REMAP_METHOD(checkSpeaker,
     resolve(@([portType isEqualToString:@"Speaker"]));
 }
 
+RCT_REMAP_METHOD(checkIfBusy,
+                 checkIfBusyWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+#ifdef DEBUG
+    NSLog(@"[RNCallKit][checkIfBusy]");
+#endif
+    resolve(@(self.callKitCallController.callObserver.calls.count > 0));
+}
+
 #pragma mark - CXCallController call actions
 
 // Display the incoming call to the user

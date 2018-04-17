@@ -110,7 +110,9 @@ export default class RNCallKit {
     }
 
     static checkSpeaker = _RNCallKit.checkSpeaker;
-    
+
+    static checkIfBusy = _RNCallKit.checkIfBusy;
+
     /*
     static setHeldCall(uuid, onHold) {
         if (Platform.OS !== 'ios') return;
