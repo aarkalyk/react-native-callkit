@@ -16,6 +16,7 @@ const RNCallKitPerformAnswerCallAction = 'RNCallKitPerformAnswerCallAction';
 const RNCallKitPerformEndCallAction = 'RNCallKitPerformEndCallAction';
 const RNCallKitDidActivateAudioSession = 'RNCallKitDidActivateAudioSession';
 const RNCallKitDidDisplayIncomingCall = 'RNCallKitDidDisplayIncomingCall';
+const RNCallKitDidPerformSetMutedCallAction = 'RNCallKitDidPerformSetMutedCallAction';
 
 export default class RNCallKit {
     static addEventListener(type, handler) {
@@ -47,6 +48,11 @@ export default class RNCallKit {
                 RNCallKitDidDisplayIncomingCall,
                 (data) => { handler(data.error); }
             );
+        } else if (type === 'didPerformSetMutedCallAction') {
+          listener = _RNCallKitEmitter.addListener(
+            RNCallKitDidPerformSetMutedCallAction,
+            (data) => { handler(data.muted); }
+          );
         }
 
         _callkitEventHandlers.set(handler, listener);
@@ -98,8 +104,13 @@ export default class RNCallKit {
         _RNCallKit.endAllCalls();
     }
 
-    static checkSpeaker = _RNCallKit.checkSpeaker;
+    static setMutedCAll(uuid, muted) {
+        if (Platform.OS !== 'ios') return;
+        _RNCallKit.setMutedCall(uuid, muted);
+    }
 
+    static checkSpeaker = _RNCallKit.checkSpeaker;
+    
     /*
     static setHeldCall(uuid, onHold) {
         if (Platform.OS !== 'ios') return;
