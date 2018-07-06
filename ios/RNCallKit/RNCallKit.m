@@ -83,17 +83,6 @@ RCT_EXPORT_METHOD(setup:(NSDictionary *)options)
     [self.callKitProvider setDelegate:self queue:nil];
 }
 
-RCT_REMAP_METHOD(checkSpeaker,
-                 checkSpeakerResolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
-{
-#ifdef DEBUG
-    NSLog(@"[RNCallKit][checkSpeaker]");
-#endif
-    NSString *portType = [AVAudioSession sharedInstance].currentRoute.outputs.count > 0 ? [AVAudioSession sharedInstance].currentRoute.outputs[0].portType : nil;
-    resolve(@([portType isEqualToString:@"Speaker"]));
-}
-
 RCT_REMAP_METHOD(checkIfBusy,
                  checkIfBusyWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
@@ -102,6 +91,17 @@ RCT_REMAP_METHOD(checkIfBusy,
     NSLog(@"[RNCallKit][checkIfBusy]");
 #endif
     resolve(@(self.callKitCallController.callObserver.calls.count > 0));
+}
+
+RCT_REMAP_METHOD(checkSpeaker,
+                 checkSpeakerResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+#ifdef DEBUG
+    NSLog(@"[RNCallKit][checkSpeaker]");
+#endif
+    NSString *output = [AVAudioSession sharedInstance].currentRoute.outputs.count > 0 ? [AVAudioSession sharedInstance].currentRoute.outputs[0].portType : nil;
+    resolve(@([output isEqualToString:@"Speaker"]));
 }
 
 #pragma mark - CXCallController call actions

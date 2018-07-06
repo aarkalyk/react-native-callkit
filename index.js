@@ -104,14 +104,22 @@ export default class RNCallKit {
         _RNCallKit.endAllCalls();
     }
 
-    static setMutedCall(uuid, muted) {
+    static setMutedCAll(uuid, muted) {
         if (Platform.OS !== 'ios') return;
         _RNCallKit.setMutedCall(uuid, muted);
     }
 
-    static checkSpeaker = _RNCallKit.checkSpeaker;
+    static checkIfBusy() {
+      return Platform.OS === 'ios'
+        ? _RNCallKit.checkIfBusy()
+        : Promise.reject('RNCallKit.checkIfBusy was called from unsupported OS');
+    };
 
-    static checkIfBusy = _RNCallKit.checkIfBusy;
+    static checkSpeaker() {
+      return Platform.OS === 'ios'
+        ? _RNCallKit.checkSpeaker()
+        : Promise.reject('RNCallKit.checkSpeaker was called from unsupported OS');
+    }
 
     /*
     static setHeldCall(uuid, onHold) {
