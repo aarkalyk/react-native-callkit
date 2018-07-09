@@ -174,6 +174,12 @@ Checks if there are any active calls on the device and returns a promise with a 
 
 Checks if the device speaker is on and returns a promise with a boolean value (`true` if speaker is on, `false` otherwise).
 
+### updateConnectionState
+
+Please, call this method when you establish or lose connection while answering. It transitions a call from `connecting` state to either `connected` or `failed`.
+
+- **connected**: boolean (default value is `true`)
+
 ## Events
 
 ### - didReceiveStartCallAction
@@ -197,6 +203,8 @@ After all works are done, remember to call `RNCallKit.startCall(uuid, calleeNumb
 User answer the incoming call
 
 Do your normal `Answering` actions here
+
+Note: Please, do not forget to call `updateConnectionState` when connection is established or failed.
 
 **data**:
 
@@ -288,6 +296,10 @@ class RNCallKitExample extends React.Component {
      * Try to do your normal Answering actions here
      *
      * e.g. this.handleAnswerCall(data.callUUID);
+     *
+     * Call RNCallKit.updateConnectionState(true) if connection is established
+     *
+     * or RNCallKit.updateConnectionState(false) if connection is failed
      */
   }
 
